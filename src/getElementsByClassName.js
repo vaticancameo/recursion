@@ -1,10 +1,19 @@
-// If life was easy, we could just do things the easy way:
-// var getElementsByClassName = function (className) {
-//   return document.getElementsByClassName(className);
-// };
+var getElementsByClassName = function(className) {
+  var result = [];
+  function traverse(element) {
+    var childElements = element.childNodes;
+    for(var i = 0; i < childElements.length; i++) {
+      if(childElements[i].classList != undefined) {
+        if (childElements[i].classList.contains(className)) {
+        result.push(childElements[i]);
+        }
+      }
+      if(childElements[i].hasChildNodes) {
+        traverse(childElements[i]);
+      }
+    }
+  }
 
-// But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className
-){
-  // your code here
+  traverse(document);
+  return result;
 };
